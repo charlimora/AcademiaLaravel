@@ -14,7 +14,12 @@ class CursoController extends Controller
      */
     public function index()
     {
-        return view('cursos.index');
+        //con el método all() traigo toda la información de la tabla como array
+        $cursito = Curso::all();
+        /*compact adjunta la información deseada a la vista
+        para poderla usar en la vista */
+        return view('cursos.index', compact('cursito'));
+
     }
 
     /**
@@ -43,6 +48,16 @@ class CursoController extends Controller
         y le asigno el valor que viene en el request*/
         $cursito->nombre = $request->input('nombre');
         $cursito->descripcion = $request->input('descripcion');
+
+        /*
+        validamos si viene un archivo desde el campo equis...
+        luego en el campo imagen almacenamos el nombre del archivo
+        que se va a guardar en storage/app/public e indicamos una subcarpeta
+        de guardado para ser más ordenados
+        */
+        if($request->hasFile('imagen')){
+            $cursito->imagen = $request->file('imagen')->store('public/cursos');
+        }
         //le digo que guarde la información anterior con save()
         $cursito->save();
         return 'Curso creado exitosamente';
