@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MiController;
 use App\Http\Controllers\HeladeriaController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\InfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,8 @@ Route::get('micontrolador/{nombre}', [MiController::class,'saludo']);
 
 Route::get('heladeria/{opcion}', [HeladeriaController::class,'calcular']);
 
+Route::get('cursos/contacto', [CursoController::class,'contacto']);
+
 Route::resource('cursos', CursoController::class);
+
+Route::get('nosotros',[InfoController::class,'info']);
